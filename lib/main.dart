@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,14 +35,14 @@ class HeroPage extends StatelessWidget {
   static const fromLetters = [
     ('T', 'T'),
     ('O', 'O1'),
-    ('M', 'M1'),
+    ('M ', 'M1'),
     ('M', 'M2'),
     ('A', 'A'),
     ('R', 'R1'),
     ('V', 'V'),
     ('O', 'O2'),
     ('L', 'L1'),
-    ('O', 'O'),
+    ('O ', 'O'),
     ('R', 'R2'),
     ('I', 'I'),
     ('D', 'D1'),
@@ -51,13 +52,13 @@ class HeroPage extends StatelessWidget {
   ];
 
   static const toLetters = [
-    ('I', 'I'),
+    ('I ', 'I'),
     ('A', 'A'),
-    ('M', 'M1'),
+    ('M ', 'M1'),
     ('L', 'L1'),
     ('O', 'O1'),
     ('R', 'R1'),
-    ('D', 'D1'),
+    ('D ', 'D1'),
     ('V', 'V'),
     ('O', 'O2'),
     ('L', 'L2'),
@@ -117,7 +118,7 @@ class _HeroLetter extends StatelessWidget {
         tag: tag,
         child: Text(
           letter,
-          style: const TextStyle(fontSize: 40),
+          style: GoogleFonts.slacksideOne(fontSize: 40, color: Colors.black),
         ),
         flightShuttleBuilder: (flightContext, animation, flightDirection,
             fromHeroContext, toHeroContext) {
@@ -126,7 +127,7 @@ class _HeroLetter extends StatelessWidget {
             animation: animation,
             builder: (context, child) {
               return DefaultTextStyle(
-                style: const TextStyle(fontSize: 40, color: Colors.black),
+                style: GoogleFonts.slacksideOne(fontSize: 40, color: Colors.black),
                 child: toHero,
               );
             },
