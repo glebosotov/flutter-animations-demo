@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Hero demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -74,16 +74,7 @@ class HeroPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MyRoute(
-              builder: (context) => HeroPage(
-                heroType:
-                    heroType == HeroType.from ? HeroType.to : HeroType.from,
-              ),
-            ),
-          );
-        },
+        onPressed: () => _onTap(context),
         child: const Icon(Icons.flip),
       ),
       body: Center(
@@ -101,43 +92,44 @@ class HeroPage extends StatelessWidget {
       ),
     );
   }
+
+  void _onTap(BuildContext context) => Navigator.of(context).push(
+        CustomPageRoute(
+          builder: (context) => HeroPage(
+            heroType: heroType == HeroType.from ? HeroType.to : HeroType.from,
+          ),
+        ),
+      );
 }
 
 class _HeroLetter extends StatelessWidget {
+  static final textStyle =
+      GoogleFonts.slacksideOne(fontSize: 40, color: Colors.black);
   final String letter;
   final String tag;
 
   const _HeroLetter({
     required this.letter,
     required this.tag,
-    super.key,
   });
 
   @override
   Widget build(BuildContext context) => Hero(
         tag: tag,
-        child: Text(
-          letter,
-          style: GoogleFonts.slacksideOne(fontSize: 40, color: Colors.black),
+        // Important to provide this [DefaultTextStyle] so that in-flight
+        // widget is wrapped into a theme
+        child: DefaultTextStyle(
+          style: textStyle,
+          child: Text(
+            letter,
+            style: textStyle,
+          ),
         ),
-        flightShuttleBuilder: (flightContext, animation, flightDirection,
-            fromHeroContext, toHeroContext) {
-          final Hero toHero = toHeroContext.widget as Hero;
-          return AnimatedBuilder(
-            animation: animation,
-            builder: (context, child) {
-              return DefaultTextStyle(
-                style: GoogleFonts.slacksideOne(fontSize: 40, color: Colors.black),
-                child: toHero,
-              );
-            },
-          );
-        },
       );
 }
 
-class MyRoute extends MaterialPageRoute {
-  MyRoute({required super.builder});
+class CustomPageRoute extends MaterialPageRoute {
+  CustomPageRoute({required super.builder});
 
   @override
   Duration get transitionDuration => const Duration(seconds: 3);
